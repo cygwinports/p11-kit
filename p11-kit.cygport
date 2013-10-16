@@ -1,5 +1,5 @@
 NAME="p11-kit"
-VERSION=0.19.1
+VERSION=0.18.7
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="PKCS#11 module library"
@@ -12,12 +12,15 @@ PATCH_URI="0.19.1-trust-shrext.patch"
 
 DEPEND="gettext-devel gtk-doc"
 
-PKG_NAMES="${NAME} ${NAME}-trust lib${NAME}0 lib${NAME}-devel"
+PKG_NAMES="${NAME} ${NAME}-trust lib${NAME}0 lib${NAME}-devel lib${NAME}-doc"
 p11_kit_SUMMARY="PKCS#11 module tool"
 p11_kit_CONTENTS="etc/ usr/bin/*.exe usr/share/doc/ usr/share/man/"
-p11_kit_trust_REQUIRES="ca-certificates"
-p11_kit_trust_CONTENTS="usr/lib/pkcs11/*trust.so usr/lib/${NAME}/*-trust usr/share/${NAME}/modules/*trust*"
+#p11_kit_trust_REQUIRES="ca-certificates"  # circular dependency
+p11_kit_trust_CONTENTS="usr/lib/pkcs11/*trust.so usr/share/${NAME}/modules/*trust*"
 libp11_kit0_CONTENTS="usr/bin/cygp11-kit-0.dll"
-libp11_kit_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/ usr/share/gtk-doc/"
+libp11_kit_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+libp11_kit_doc_CATEGORY="Doc"
+libp11_kit_doc_CONTENTS="usr/share/gtk-doc/"
+PKG_IGNORE="usr/lib/${NAME}/*-extract-trust"
 
-CYGCONF_ARGS="--enable-doc --with-trust-paths=/usr/ssl/certs/ca-bundle.crt"
+CYGCONF_ARGS="--enable-doc --with-trust-paths=/etc/pki/ca-trust/source:/usr/share/pki/ca-trust-source"
