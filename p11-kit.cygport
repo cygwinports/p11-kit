@@ -1,6 +1,6 @@
 NAME="p11-kit"
-VERSION=0.18.7
-RELEASE=2
+VERSION=0.20.2
+RELEASE=1
 CATEGORY="Libs"
 SUMMARY="PKCS#11 module library"
 DESCRIPTION="Provides a way to load and enumerate PKCS#11 modules. Provides a
@@ -25,6 +25,6 @@ libp11_kit0_CONTENTS="usr/bin/cygp11-kit-0.dll"
 libp11_kit_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
 libp11_kit_doc_CATEGORY="Doc"
 libp11_kit_doc_CONTENTS="usr/share/gtk-doc/"
-PKG_IGNORE="usr/lib/${NAME}/*-extract-trust"
+PKG_IGNORE="usr/lib/${NAME}/trust-extract-compat"
 
 CYGCONF_ARGS="--enable-doc --with-trust-paths=/etc/pki/ca-trust/source:/usr/share/pki/ca-trust-source"
