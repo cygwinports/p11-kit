@@ -1,5 +1,5 @@
 NAME="p11-kit"
-VERSION=0.20.7
+VERSION=0.22.1
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="PKCS#11 module library"
@@ -18,7 +18,7 @@ DEPEND="gettext-devel gtk-doc"
 
 PKG_NAMES="${NAME} ${NAME}-trust lib${NAME}0 lib${NAME}-devel lib${NAME}-doc"
 p11_kit_SUMMARY="PKCS#11 module tool"
-p11_kit_CONTENTS="etc/ usr/bin/*.exe usr/share/doc/ usr/share/man/"
+p11_kit_CONTENTS="--exclude=trust-extract-compat etc/ usr/bin/*.exe usr/lib/${NAME}/ usr/share/doc/ usr/share/man/"
 #p11_kit_trust_REQUIRES="ca-certificates"  # circular dependency
 p11_kit_trust_CONTENTS="usr/lib/pkcs11/*trust.so usr/share/${NAME}/modules/*trust*"
 libp11_kit0_CONTENTS="usr/bin/cygp11-kit-0.dll"
