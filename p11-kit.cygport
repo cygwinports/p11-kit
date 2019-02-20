@@ -1,5 +1,5 @@
 NAME="p11-kit"
-VERSION=0.23.10
+VERSION=0.23.15
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="PKCS#11 module library"
@@ -12,7 +12,6 @@ PATCH_URI="
 	0.23.5-implicit-decls.patch
 	0.23.5-module-shrext.patch
 	0.18.7-parallel-make.patch
-	0.18.7-win8-x64.patch
 "
 
 DEPEND="gettext-devel gtk-doc"
@@ -21,10 +20,12 @@ PKG_NAMES="${NAME} ${NAME}-server ${NAME}-trust lib${NAME}0 lib${NAME}-devel lib
 p11_kit_SUMMARY="PKCS#11 module tool"
 p11_kit_CONTENTS="
 	--exclude=trust-extract-compat
-	etc/
+	etc/defaults/etc/pkcs11/
+	etc/p*/${NAME}.sh
 	usr/bin/p11-kit.exe
 	usr/libexec/p11-kit/p11-kit-remote.exe
-	usr/share/doc/
+	usr/lib/p11-kit-proxy.so
+	usr/share/doc/${NAME}
 	usr/share/man/man5/pkcs11.conf.5*
 	usr/share/man/man8/p11-kit.8*
 "
@@ -51,3 +52,13 @@ libp11_kit_doc_CONTENTS="usr/share/gtk-doc/"
 PKG_IGNORE="usr/libexec/p11-kit/trust-extract-compat"
 
 CYGCONF_ARGS="--enable-doc --with-trust-paths=/etc/pki/ca-trust/source:/usr/share/pki/ca-trust-source"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	dosym ../bin/cygp11-kit-0.dll /usr/lib/p11-kit-proxy.so
+
+	mv ${D}/etc/pkcs11/pkcs11.conf{.example,}
+	make_etc_defaults /etc/pkcs11/pkcs11.conf
+}
